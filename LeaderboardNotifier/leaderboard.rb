@@ -61,7 +61,7 @@ def check(member)
                 .transform_keys { |k| "Part #{k}" }
                 .transform_values { |v| ", achieved <t:#{v['get_star_ts']}:R>" }
     parts.each do |p|
-      content += "Day #{star.first} #{p.join}\n" unless old['completion_day_level'][star.first[-1]].key? p.first[-1]
+      content += "Day #{star.first} #{p.join}\n" unless old['completion_day_level'][star.first[-1]]&.has_key? p.first[-1]
     end
   end
   notify(member['name'], content)
