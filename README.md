@@ -9,8 +9,8 @@
 | [5: Hydrothermal Venture](https://adventofcode.com/2021/day/5)    | [★★](5)  |
 | [6: Lanternfish](https://adventofcode.com/2021/day/6)             | [★★](6)  |
 | [7: The Treachery of Whales](https://adventofcode.com/2021/day/7) | [★★](7)  |
-| [8](https://adventofcode.com/2021/day/8)                          | [☆☆](8)  |
-| [9](https://adventofcode.com/2021/day/9)                          | [☆☆](9)  |
+| [8: Seven Segment Search](https://adventofcode.com/2021/day/8)    | [★☆](8)  |
+| [9: Smoke Basin](https://adventofcode.com/2021/day/9)             | [★★](9)  |
 | [10](https://adventofcode.com/2021/day/10)                        | [☆☆](10) |
 | [11](https://adventofcode.com/2021/day/11)                        | [☆☆](11) |
 | [12](https://adventofcode.com/2021/day/12)                        | [☆☆](12) |

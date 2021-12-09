@@ -20,10 +20,10 @@ class Basin
   def fill(pos_x, pos_y)
     return if out_of_bounds?(pos_x, pos_y) # out of bounds
     return if @field[pos_x][pos_y] == 9 # border reached
-    return if @markers[[pos_x, pos_y]] == 'X' # been here before
+    return if @markers[[pos_x, pos_y]] == :marked # been here before
 
     @size += 1
-    @markers[[pos_x, pos_y]] = 'X'
+    @markers[[pos_x, pos_y]] = :marked
 
     fill(pos_x + 1, pos_y)
     fill(pos_x - 1, pos_y)
