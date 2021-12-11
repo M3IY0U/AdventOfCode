@@ -60,9 +60,9 @@ def check(member)
     parts = star.last
                 .transform_keys { |k| "Part #{k}" }
                 .transform_values { |v| ", achieved <t:#{v['get_star_ts']}:R>" }
-    parts.each do |p|
-      if old.empty? || !(old['completion_day_level'][star.first[-1]]&.has_key? p.first[-1])
-        content += "Day #{star.first} #{p.join}\n"
+    parts.each do |part|
+      if old.empty? || !(old['completion_day_level'][star.first]&.has_key? part.first[-1])
+        content += "Day #{star.first} #{part.join}\n"
       end
     end
   end
