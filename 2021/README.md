@@ -1,4 +1,4 @@
-## Solutions for [Advent of Code 2021](https://adventofcode.com/2021/day/1), probably mostly written in Ruby (unless i get bored of it)
+## My Solutions for [Advent of Code 2021](https://adventofcode.com/2021/day/1), probably mostly written in Ruby (unless i get bored of it)
 
 | Day                                                               | Solution |
 | ----------------------------------------------------------------- | -------- |
