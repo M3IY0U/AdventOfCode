@@ -13,7 +13,7 @@ end
 abort('Please provide a config.json in the same directory this is run in') unless File.exist?('config.json')
 
 @config = JSON.parse(File.read('config.json'))
-@url = "https://adventofcode.com/2021/leaderboard/private/view/#{@config['leaderboard_id']}.json"
+@url = "https://adventofcode.com/#{@config['year']}/leaderboard/private/view/#{@config['leaderboard_id']}.json"
 @cookie = "session=#{@config['session_cookie']}"
 @local = JSON.parse(File.read('local.json')) if File.exist?('local.json')
 @local = {} if @local.nil?
