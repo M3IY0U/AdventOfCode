@@ -1,5 +1,6 @@
 {
     "leaderboard_id": "123456",
+    "year": "2022",
     "session_cookie": "see how to get this here https://github.com/wimglenn/advent-of-code-wim/issues/1",
     "webhook_url": "your discord webhook url. right click a channel -> integrations",
     "webhook_avatar_url": "any image",
