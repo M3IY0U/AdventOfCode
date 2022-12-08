@@ -2,6 +2,7 @@
 
 $grid = File.readlines('input.txt').map { |l| l.chomp.split('').map(&:to_i) }
 
+# Part 1
 def check_visibility(x, y)
   # check row
   left = (0...x).to_a.all? { |t| $grid[t][y] < $grid[x][y] }
@@ -23,6 +24,7 @@ end
 
 p trees.count(true) + ($grid.length * 2 + $grid[0].length * 2 - 4) # => 1818
 
+# Part 2
 def calc_scenic_score(x, y)
   current = $grid[x][y]
   i = x
@@ -59,14 +61,9 @@ def calc_scenic_score(x, y)
     j += 1
   end
 
-  scores
+  scores.inject(:*)
 end
 
 scores = []
-(1...($grid.length - 1)).each do |x|
-  (1...($grid[0].length - 1)).each do |y|
-    scores << calc_scenic_score(x, y)
-  end
-end
-
-p scores.map { |a| a.inject(:*) }.max # => 368368
+(1...($grid.length - 1)).each { |x| (1...($grid[0].length - 1)).each { |y| scores << calc_scenic_score(x, y) } }
+p scores.max # => 368368
