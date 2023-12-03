@@ -39,7 +39,7 @@ end
 def notify(user, content)
   leaderboard_url = @url.chomp('.json')
   embed = Discord::Embed.new do
-    author name: "#{user} achieved new star(s)!",
+    author name: "#{user} #{content.empty? ? 'joined the leaderboard' : 'achieved new star(s)'}!",
            url: leaderboard_url
     description content
     color 0x009000
