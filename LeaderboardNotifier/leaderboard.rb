@@ -70,11 +70,15 @@ def check(member)
 end
 
 loop do
-  web = JSON.parse(make_request)['members'].map(&:last)
-  web.each { |member| check(member) }
-  last_sent = Time.now
-  @local = web
-  File.write('local.json', JSON.pretty_generate(web))
+  begin
+    web = JSON.parse(make_request)['members'].map(&:last)
+    web.each { |member| check(member) }
+    last_sent = Time.now
+    @local = web
+    File.write('local.json', JSON.pretty_generate(web))
+  rescue StandardError => e
+    puts "Error checking leaderboard: #{e}"
+  end
 
   sleep 60 and puts "Sleeping 900 seconds until #{last_sent + 900}" until Time.now > last_sent + 900
 end
