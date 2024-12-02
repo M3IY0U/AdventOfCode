@@ -9,7 +9,7 @@
 
     <ItemGroup>
       <None Include="Days\**\*.txt">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
 

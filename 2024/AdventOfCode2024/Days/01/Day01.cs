@@ -3,7 +3,7 @@ namespace AdventOfCode2024.Days._01;
 public class Day01 : ADay
 {
     private readonly (List<int>, List<int>) _parsed;
-
+    protected override Part Execute => Part.Both;
     public Day01() => _parsed = ParseInput();
 
     private (List<int>, List<int>) ParseInput()
