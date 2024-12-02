@@ -39,17 +39,14 @@ public class Day02 : ADay
             !numbers.SequenceEqual(numbers.OrderDescending()))
             return false;
 
-        var isSafe = true;
-
         for (var i = 0; i < numbers.Count - 1; i++)
         {
             if (Math.Abs(numbers[i] - numbers[i + 1]) is >= 1 and <= 3)
                 continue;
 
-            isSafe = false;
-            break;
+            return false;
         }
 
-        return isSafe;
+        return true;
     }
 }
