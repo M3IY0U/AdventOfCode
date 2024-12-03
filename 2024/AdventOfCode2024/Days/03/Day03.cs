@@ -9,9 +9,10 @@ public partial class Day03 : ADay
     protected override int Part1()
     {
         var regex = Part1Regex();
-        var matches = regex.Matches(Input[0]);
+        var matches = regex.Matches(Input[0]).Cast<Match>();
         var sum = 0;
-        foreach (Match match in matches)
+        
+        foreach (var match in matches)
         {
             var vals = match.Groups[1].Value;
             var comma = vals.IndexOf(',');
@@ -50,9 +51,9 @@ public partial class Day03 : ADay
         return total;
     }
 
-    [GeneratedRegex(@"mul\((\d{1,3},\d{1,3})\)")]
+    [GeneratedRegex(@"mul\((\d{1,3},\d{1,3})\)", RegexOptions.Compiled)]
     private static partial Regex Part1Regex();
 
-    [GeneratedRegex(@"do\(\)|don't\(\)|mul\((\d{1,3},\d{1,3})\)")]
+    [GeneratedRegex(@"do\(\)|don't\(\)|mul\((\d{1,3},\d{1,3})\)", RegexOptions.Compiled)]
     private static partial Regex Part2Regex();
 }
