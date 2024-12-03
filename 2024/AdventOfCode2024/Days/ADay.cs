@@ -33,7 +33,7 @@ public abstract class ADay
                 var p2 = Part2();
                 sw.Stop();
                 Console.WriteLine(
-                    $"Part 2: {p2} | {sw.ElapsedMilliseconds} ms");
+                    $"Part 2: {p2} | {sw.Elapsed.TotalMilliseconds} ms");
                 break;
             }
             case Part.Both:
@@ -42,13 +42,13 @@ public abstract class ADay
                 var p1 = Part1();
                 sw.Stop();
                 Console.WriteLine(
-                    $"Part 1: {p1} | {sw.ElapsedMilliseconds} ms");
+                    $"Part 1: {p1} | {sw.Elapsed.TotalMilliseconds} ms");
 
                 sw.Restart();
                 var p2 = Part2();
                 sw.Stop();
                 Console.WriteLine(
-                    $"Part 2: {p2} | {sw.ElapsedMilliseconds} ms");
+                    $"Part 2: {p2} | {sw.Elapsed.TotalMilliseconds} ms");
                 break;
             }
             default:
