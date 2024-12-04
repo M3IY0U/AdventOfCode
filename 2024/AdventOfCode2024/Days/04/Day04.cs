@@ -10,6 +10,7 @@ public class Day04 : ADay
 
     private static readonly int[] DirectionsX = [-1, -1, -1, 0, 0, 1, 1, 1];
     private static readonly int[] DirectionsY = [-1, 0, 1, -1, 1, -1, 0, 1];
+    private readonly string[] _crossWords = ["MAS", "SAM"];
 
     private bool IsOutsideGrid(int x, int y) =>
         x < 0 || y < 0 || x >= _cols || y >= _rows;
@@ -33,7 +34,7 @@ public class Day04 : ADay
 
         return count;
     }
-    
+
     private bool CheckWord(
         string word,
         int x,
@@ -61,16 +62,12 @@ public class Day04 : ADay
         var sum = 0;
         for (var i = 0; i < _rows; i++)
         for (var j = 0; j < _cols; j++)
-        {
             if (CheckCross('A', i, j))
                 sum++;
-        }
 
         return sum;
     }
 
-    private readonly string[] _crossWords = ["MAS", "SAM"];
-    
     private bool CheckCross(char character, int x, int y)
     {
         if (_grid[x][y] != character)
@@ -81,9 +78,13 @@ public class Day04 : ADay
         if (offsets.Any(offset => IsOutsideGrid(x + offset, y + offset)))
             return false;
 
-        var diag1 = new string([_grid[x - 1][y - 1], _grid[x][y], _grid[x + 1][y + 1]]);
-        var diag2 = new string([_grid[x + 1][y - 1], _grid[x][y], _grid[x - 1][y + 1]]);
-        
+        var diag1 = new string([
+            _grid[x - 1][y - 1], _grid[x][y], _grid[x + 1][y + 1]
+        ]);
+        var diag2 = new string([
+            _grid[x + 1][y - 1], _grid[x][y], _grid[x - 1][y + 1]
+        ]);
+
         return _crossWords.Contains(diag1) && _crossWords.Contains(diag2);
     }
 }
