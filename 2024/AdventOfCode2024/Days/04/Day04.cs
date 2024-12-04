@@ -10,7 +10,6 @@ public class Day04 : ADay
 
     private static readonly int[] DirectionsX = [-1, -1, -1, 0, 0, 1, 1, 1];
     private static readonly int[] DirectionsY = [-1, 0, 1, -1, 1, -1, 0, 1];
-    private readonly string[] _crossWords = ["MAS", "SAM"];
 
     private bool IsOutsideGrid(int x, int y) =>
         x < 0 || y < 0 || x >= _cols || y >= _rows;

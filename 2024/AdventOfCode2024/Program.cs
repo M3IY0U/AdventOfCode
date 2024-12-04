@@ -1,5 +1,7 @@
-﻿using AdventOfCode2024.Days;
-
+﻿using AdventOfCode2024;
+using AdventOfCode2024.Days;
+using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Running;
 
 var days = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
     .Where(x => typeof(ADay).IsAssignableFrom(x) &&
@@ -23,10 +25,21 @@ return;
 
 #endif
 
-Console.WriteLine(
-    "Empty/Enter for current day or a number for specific day or `all` for all days");
+Console.WriteLine("`B` for benchmarking or anything else for normal execution: ");
 var input = Console.ReadLine();
 
+if (input?.ToLower() == "b")
+{
+    var config = ManualConfig.CreateMinimumViable()
+        .WithOption(ConfigOptions.DisableLogFile, true);
+    
+    BenchmarkRunner.Run<AocBenchmark>(config);
+    return;
+}
+
+Console.WriteLine(
+    "Empty/Enter for current day or a number for specific day or `all` for all days");
+input = Console.ReadLine();
 
 switch (input)
 {
@@ -55,11 +68,8 @@ switch (input)
                 day ?? throw new("Day not found"))!;
             d.Run();
         }
-        else
-        {
-            Console.WriteLine("Day could not be parsed");
-        }
-
+        else Console.WriteLine("Day could not be parsed");
+        
         break;
     }
 }
