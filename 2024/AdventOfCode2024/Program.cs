@@ -19,20 +19,20 @@ void CurrentDay()
 }
 
 #if DEBUG
-
 CurrentDay();
 return;
 
 #endif
 
-Console.WriteLine("`B` for benchmarking or anything else for normal execution: ");
+Console.WriteLine(
+    "`B` for benchmarking or anything else for normal execution: ");
 var input = Console.ReadLine();
 
 if (input?.ToLower() == "b")
 {
     var config = ManualConfig.CreateMinimumViable()
         .WithOption(ConfigOptions.DisableLogFile, true);
-    
+
     BenchmarkRunner.Run<AocBenchmark>(config);
     return;
 }
@@ -69,7 +69,7 @@ switch (input)
             d.Run();
         }
         else Console.WriteLine("Day could not be parsed");
-        
+
         break;
     }
 }

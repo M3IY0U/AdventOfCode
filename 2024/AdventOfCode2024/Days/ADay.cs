@@ -23,7 +23,7 @@ public abstract class ADay
                 var p1 = Part1();
                 sw.Stop();
                 Console.WriteLine(
-                    $"Part 1: {p1} | {sw.ElapsedMilliseconds} ms");
+                    $"Part 1: {p1} | {sw.Elapsed.TotalMilliseconds} ms");
                 sw.Reset();
                 break;
             }
