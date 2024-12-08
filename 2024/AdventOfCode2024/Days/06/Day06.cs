@@ -5,9 +5,9 @@ public class Day06 : ADay
     private readonly char[][] _grid;
     private (int y, int x) _guardPos;
     private Direction _currentDirection;
-    private HashSet<(int x, int y)> _visited;
+    private readonly HashSet<(int x, int y)> _visited;
 
-    protected override Part Execute => Part.Two;
+    protected override Part Execute => Part.Both;
 
     public Day06()
     {
@@ -27,97 +27,36 @@ public class Day06 : ADay
         }
     }
 
-    private void PrintGrid()
-    {
-        var grid = _grid.Select(x => string.Join("", x));
-        foreach (var row in grid)
-        {
-            Console.WriteLine(row);
-        }
-
-        Console.WriteLine("------------------");
-    }
-
     protected override int Part1()
     {
-        while (_guardPos is { x: >= 0, y: >= 0 } &&
-               _guardPos.x < _grid.Length && _guardPos.y < _grid[0].Length)
+        var originalPos = _guardPos;
+        while (_guardPos is { x: >= 0, y: >= 0 } && 
+               _guardPos.x < _grid.Length &&
+               _guardPos.y < _grid[0].Length)
         {
-            _currentDirection = NextDirection(_grid);
-            Move(true);
+            Move(true, _grid);
         }
 
+        _guardPos = originalPos;
         return _visited.Count;
     }
-
-    private void Move(bool mark)
-    {
-        if (mark)
-        {
-            _grid[_guardPos.y][_guardPos.x] = 'x';
-            _visited.Add((_guardPos.x, _guardPos.y));
-        }
-
-        _guardPos = _currentDirection switch
-        {
-            Direction.North => (_guardPos.y - 1, _guardPos.x),
-            Direction.South => (_guardPos.y + 1, _guardPos.x),
-            Direction.East => (_guardPos.y, _guardPos.x + 1),
-            Direction.West => (_guardPos.y, _guardPos.x - 1),
-            _ => throw new ArgumentOutOfRangeException()
-        };
-    }
-
-    private Direction NextDirection(char[][] grid)
-    {
-        switch (_currentDirection)
-        {
-            case Direction.North:
-                if (_guardPos.y == 0) return Direction.North;
-                if (grid[_guardPos.y - 1][_guardPos.x] == '#')
-                    return Direction.East;
-                break;
-            case Direction.South:
-                if (_guardPos.y == _grid.Length - 1) return Direction.South;
-                if (grid[_guardPos.y + 1][_guardPos.x] == '#')
-                    return Direction.West;
-                break;
-            case Direction.East:
-                if (_guardPos.x == _grid[0].Length - 1) return Direction.East;
-                if (grid[_guardPos.y][_guardPos.x + 1] == '#')
-                    return Direction.South;
-                break;
-            case Direction.West:
-                if (_guardPos.x == 0) return Direction.West;
-                if (grid[_guardPos.y][_guardPos.x - 1] == '#')
-                    return Direction.North;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-
-        return _currentDirection;
-    }
-
 
     protected override int Part2()
     {
         var originalGuardPos = _guardPos;
         var potentialLocations = 0;
-        for (int i = 0; i < _grid.Length; i++)
+        for (var i = 0; i < _grid.Length; i++)
         {
-            for (int j = 0; j < _grid[0].Length; j++)
+            for (var j = 0; j < _grid[0].Length; j++)
             {
-                if ((j, i) == _guardPos) continue;
+                if ((j, i) == _guardPos || _grid[j][i] == '#') continue;
 
-                char[][] testGrid = _grid.Select(a => a.ToArray()).ToArray();
-                testGrid[j][i] = '#';
+                var originalValue = _grid[j][i];
+                _grid[j][i] = '#';
 
-                if (TestGrid(testGrid))
-                {
-                    potentialLocations++;
-                }
+                if (IsInLoop(_grid)) potentialLocations++;
 
+                _grid[j][i] = originalValue;
                 _guardPos = originalGuardPos;
                 _currentDirection = Direction.North;
             }
@@ -126,20 +65,60 @@ public class Day06 : ADay
         return potentialLocations;
     }
 
-    private bool TestGrid(char[][] testGrid)
+    private void Move(bool mark, char[][] grid)
     {
-        for (int i = 0; i < 130*130*130; i++)
+        if (mark)
         {
-            _currentDirection = NextDirection(testGrid);
-            Move(false);
-
-            if (_guardPos.x < 0 || _guardPos.y < 0 ||
-                _guardPos.x >= testGrid.Length ||
-                _guardPos.y >= testGrid[0].Length)
-                return false;
+            _grid[_guardPos.y][_guardPos.x] = 'x';
+            _visited.Add((_guardPos.x, _guardPos.y));
         }
 
-        return true;
+        var nextPos = NextPos(_currentDirection, _guardPos);
+        if (IsOutOfBounds(nextPos.y, nextPos.x, grid))
+        {
+            _guardPos = nextPos;
+            return;
+        }
+
+        if (grid[nextPos.y][nextPos.x] == '#')
+        {
+            _currentDirection = _currentDirection switch
+            {
+                Direction.North => Direction.East,
+                Direction.South => Direction.West,
+                Direction.East => Direction.South,
+                Direction.West => Direction.North,
+                _ => throw new()
+            };
+        }
+        else _guardPos = nextPos;
+    }
+
+    private static bool IsOutOfBounds(int y, int x, char[][] grid) =>
+        x < 0 || x >= grid.Length || y < 0 || y >= grid[0].Length;
+
+    private static (int y, int x) NextPos(Direction direction,
+        (int y, int x) currentPos)
+    {
+        return direction switch
+        {
+            Direction.North => (currentPos.y - 1, currentPos.x),
+            Direction.South => (currentPos.y + 1, currentPos.x),
+            Direction.East => (currentPos.y, currentPos.x + 1),
+            Direction.West => (currentPos.y, currentPos.x - 1),
+            _ => throw new ArgumentOutOfRangeException(nameof(direction),
+                direction, null)
+        };
+    }
+
+    private bool IsInLoop(char[][] testGrid)
+    {
+        var current = 0;
+        const int maxSteps = 130 * 130;
+        while (!IsOutOfBounds(_guardPos.y, _guardPos.x, testGrid) && current++ < maxSteps)
+            Move(false, testGrid);
+
+        return !IsOutOfBounds(_guardPos.y, _guardPos.x, testGrid);
     }
 }
 
