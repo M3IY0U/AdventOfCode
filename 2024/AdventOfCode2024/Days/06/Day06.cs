@@ -27,7 +27,7 @@ public class Day06 : ADay
         }
     }
 
-    protected override int Part1()
+    protected override string Part1()
     {
         var originalPos = _guardPos;
         while (_guardPos is { x: >= 0, y: >= 0 } && 
@@ -38,10 +38,10 @@ public class Day06 : ADay
         }
 
         _guardPos = originalPos;
-        return _visited.Count;
+        return _visited.Count.ToString();
     }
 
-    protected override int Part2()
+    protected override string Part2()
     {
         var originalGuardPos = _guardPos;
         var potentialLocations = 0;
@@ -62,7 +62,7 @@ public class Day06 : ADay
             }
         }
 
-        return potentialLocations;
+        return potentialLocations.ToString();
     }
 
     private void Move(bool mark, char[][] grid)

@@ -21,7 +21,7 @@ public class Day04 : ADay
         _grid = Input.Select(x => x.ToCharArray()).ToArray();
     }
 
-    protected override int Part1()
+    protected override string Part1()
     {
         var count = 0;
 
@@ -31,7 +31,7 @@ public class Day04 : ADay
             if (CheckWord("XMAS", i, j, DirectionsX[k], DirectionsY[k]))
                 count++;
 
-        return count;
+        return count.ToString();
     }
 
     private bool CheckWord(
@@ -56,7 +56,7 @@ public class Day04 : ADay
         }
     }
 
-    protected override int Part2()
+    protected override string Part2()
     {
         var sum = 0;
         for (var i = 0; i < _rows; i++)
@@ -64,7 +64,7 @@ public class Day04 : ADay
             if (CheckCross(i, j))
                 sum++;
 
-        return sum;
+        return sum.ToString();
     }
 
     private bool CheckCross(int x, int y)

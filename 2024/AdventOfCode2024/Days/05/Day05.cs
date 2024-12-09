@@ -21,24 +21,24 @@ public class Day05 : ADay
             .ToList();
     }
 
-    protected override int Part1()
+    protected override string Part1()
     {
         var correct = from update in _updates
             let corrected = CorrectOrder(update)
             where corrected.SequenceEqual(update)
             select update.ElementAt(update.Count / 2);
 
-        return correct.Sum();
+        return correct.Sum().ToString();
     }
 
-    protected override int Part2()
+    protected override string Part2()
     {
         var correct = from update in _updates
             let corrected = CorrectOrder(update)
             where !corrected.SequenceEqual(update)
             select corrected[corrected.Count / 2];
 
-        return correct.Sum();
+        return correct.Sum().ToString();
     }
 
     private List<int> CorrectOrder(HashSet<int> set)

@@ -24,23 +24,23 @@ public class Day01 : ADay
         return (list1, list2);
     }
 
-    protected override int Part1()
+    protected override string Part1()
     {
         var (list1, list2) = _parsed;
 
         var differences =
             list1.Select((t, i) => Math.Abs(t - list2[i])).ToList();
 
-        return differences.Sum();
+        return differences.Sum().ToString();
     }
 
-    protected override int Part2()
+    protected override string Part2()
     {
         var (list1, list2) = _parsed;
 
         var similarities =
             list1.Select(t => t * list2.Count(l => l == t)).ToList();
 
-        return similarities.Sum();
+        return similarities.Sum().ToString();
     }
 }

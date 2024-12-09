@@ -10,7 +10,7 @@ var days = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
 
 void CurrentDay()
 {
-    var current = DateTime.Now.ToString("dd");
+    var current = DateTime.Now.AddDays(-2).ToString("dd");
     var day = days.Find(x =>
         x.FullName != null && x.FullName.EndsWith(current));
     var d = (ADay)Activator.CreateInstance(
@@ -50,11 +50,12 @@ switch (input)
     }
     case "all":
     {
-        days.ForEach(day =>
+        foreach (var day in days.OrderBy(x => x.Name))
         {
             var d = (ADay)Activator.CreateInstance(day)!;
             d.Run();
-        });
+        }
+
         break;
     }
     default:

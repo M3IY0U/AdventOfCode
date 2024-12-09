@@ -4,15 +4,15 @@ public class Day02 : ADay
 {
     protected override Part Execute => Part.Both;
 
-    protected override int Part1()
+    protected override string Part1()
     {
         var lines =
             Input.Select(line => line.Split(" ").Select(int.Parse).ToList());
 
-        return lines.Select(CheckSafe).Count(isSafe => isSafe);
+        return lines.Select(CheckSafe).Count(isSafe => isSafe).ToString();
     }
 
-    protected override int Part2()
+    protected override string Part2()
     {
         var safe = 0;
         foreach (var line in Input)
@@ -30,7 +30,7 @@ public class Day02 : ADay
                 break;
             }
         }
-        return safe;
+        return safe.ToString();
     }
 
     private static bool CheckSafe(List<int> numbers)

@@ -5,8 +5,8 @@ namespace AdventOfCode2024.Days;
 public abstract class ADay
 {
     protected ADay() => Input = File.ReadAllLines($"./Days/{GetType().Name[^2..]}/input.txt");
-    protected abstract int Part1();
-    protected abstract int Part2();
+    protected abstract string Part1();
+    protected abstract string Part2();
     protected readonly string[] Input;
     protected virtual Part Execute => Part.One;
 

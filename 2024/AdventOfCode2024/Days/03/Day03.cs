@@ -6,7 +6,7 @@ public partial class Day03 : ADay
 {
     protected override Part Execute => Part.Both;
 
-    protected override int Part1()
+    protected override string Part1()
     {
         var regex = Part1Regex();
         var matches = regex.Matches(Input[0]).Cast<Match>();
@@ -19,10 +19,10 @@ public partial class Day03 : ADay
             sum += int.Parse(vals[..comma]) * int.Parse(vals[(comma + 1)..]);
         }
         
-        return sum;
+        return sum.ToString();
     }
 
-    protected override int Part2()
+    protected override string Part2()
     {
         var regex = Part2Regex();
         var matches = regex.Matches(Input[0]).Cast<Match>();
@@ -48,7 +48,7 @@ public partial class Day03 : ADay
             total += int.Parse(vals[..comma]) * int.Parse(vals[(comma + 1)..]);
         }
 
-        return total;
+        return total.ToString();
     }
 
     [GeneratedRegex(@"mul\((\d{1,3},\d{1,3})\)", RegexOptions.Compiled)]
