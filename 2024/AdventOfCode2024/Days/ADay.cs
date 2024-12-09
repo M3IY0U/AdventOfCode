@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 namespace AdventOfCode2024.Days;
 
-public abstract class ADay
+public abstract partial class ADay
 {
     protected ADay() => Input = File.ReadAllLines($"./Days/{GetType().Name[^2..]}/input.txt");
     protected abstract string Part1();
