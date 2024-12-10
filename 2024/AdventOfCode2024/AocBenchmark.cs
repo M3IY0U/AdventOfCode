@@ -11,7 +11,7 @@ public class AocBenchmark
     private MethodInfo _part1Method = null!;
     private MethodInfo _part2Method = null!;
 
-    [Params(5)]
+    [Params(10)]
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
     public int Day { get; set; }
 

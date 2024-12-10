@@ -48,24 +48,22 @@ public class Day10 : ADay
     protected override string Part1()
     {
         _rating = false;
-        return GetScores().ToString();
+        return CalculateScores().ToString();
     }
 
     protected override string Part2()
     {
         _rating = true;
         _trailHeads.ForEach(x => x.Score = 0);
-        return GetScores().ToString();
+        return CalculateScores().ToString();
     }
 
-    private int GetScores()
+    private int CalculateScores()
     {
-        for (var i = 0; i < _trailHeads.Count; i++)
-        {
-            var trailHead = _trailHeads[i];
-            WalkTrail(0, trailHead.Start, i, []);
-        }
-
+        var tasks = _trailHeads.Select((trailHead, i) =>
+            Task.Run(() => WalkTrail(0, trailHead.Start, i, [])));
+        
+        Task.WaitAll(tasks);
         return _trailHeads.Sum(t => t.Score);
     }
 
