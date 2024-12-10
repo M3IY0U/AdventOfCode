@@ -53,7 +53,7 @@ public class Day08 : ADay
                     if (a == b) continue;
 
                     (int x, int y) dist = (a.X - b.X, a.Y - b.Y);
-                    (int x, int y) location = (a.X - -dist.x, a.Y - -dist.y);
+                    (int x, int y) location = (a.X + dist.x, a.Y + dist.y);
 
                     if (!part2)
                     {
@@ -65,7 +65,7 @@ public class Day08 : ADay
                         while (IsWithinBounds(location, _width, _height))
                         {
                             result.Add(location);
-                            location = (location.x - -dist.x, location.y - -dist.y);
+                            location = (location.x + dist.x, location.y + dist.y);
                         }
                     }
                 }
