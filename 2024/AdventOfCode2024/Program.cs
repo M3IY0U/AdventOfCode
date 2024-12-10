@@ -10,7 +10,7 @@ var days = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
 
 void CurrentDay()
 {
-    var current = DateTime.Now.AddDays(-2).ToString("dd");
+    var current = DateTime.Now.ToString("dd");
     var day = days.Find(x =>
         x.FullName != null && x.FullName.EndsWith(current));
     var d = (ADay)Activator.CreateInstance(
