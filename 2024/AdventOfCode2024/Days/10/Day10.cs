@@ -15,7 +15,7 @@ public class Day10 : ADay
         public int Score { get; set; }
         public (int x, int y) Start;
         public readonly HashSet<(int x, int y)> Ends = [];
-    };
+    }
 
     public Day10()
     {
