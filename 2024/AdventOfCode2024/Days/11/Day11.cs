@@ -4,16 +4,18 @@ public class Day11 : ADay
 {
     protected override Part Execute => Part.Both;
 
-    private string[] Stones => Input[0].Split();
+    private readonly long[] _stones;
 
-    protected override string Part1() => SimulateStones(25, Stones).ToString();
+    public Day11() => _stones = Input[0].Split().Select(long.Parse).ToArray();
 
-    protected override string Part2() => SimulateStones(75, Stones).ToString();
+    protected override string Part1() => SimulateStones(25, _stones).ToString();
 
-    private static long SimulateStones(int number, string[] stones)
+    protected override string Part2() => SimulateStones(75, _stones).ToString();
+
+    private static long SimulateStones(int number, long[] stones)
     {
-        var stoneCounts = new Dictionary<string, long>();
-        var newStoneCounts = new Dictionary<string, long>();
+        var stoneCounts = new Dictionary<long, long>();
+        var newStoneCounts = new Dictionary<long, long>();
 
         foreach (var stone in stones)
         {
@@ -27,26 +29,18 @@ public class Day11 : ADay
         {
             foreach (var (stone, count) in stoneCounts)
             {
-                if (stone == "0")
+                if (stone == 0)
                 {
-                    UpdateDict(newStoneCounts, "1", count);
+                    UpdateDict(newStoneCounts, 1, count);
                 }
-                else if (stone.Length % 2 == 0)
+                else if (SplitStone(stone, out var left, out var right))
                 {
-                    var mid = stone.Length / 2;
-                    var left = stone[..mid].TrimStart('0');
-                    var right = stone[mid..].TrimStart('0');
-
-                    if (string.IsNullOrEmpty(left)) left = "0";
-                    if (string.IsNullOrEmpty(right)) right = "0";
-
                     UpdateDict(newStoneCounts, left, count);
                     UpdateDict(newStoneCounts, right, count);
                 }
                 else
                 {
-                    var newNumber = long.Parse(stone) * 2024;
-                    UpdateDict(newStoneCounts, newNumber.ToString(), count);
+                    UpdateDict(newStoneCounts, stone * 2024, count);
                 }
             }
 
@@ -57,7 +51,23 @@ public class Day11 : ADay
         return stoneCounts.Values.Sum();
     }
 
-    private static void UpdateDict(Dictionary<string, long> dict, string key, long value)
+    private static bool SplitStone(long stone, out long left, out long right)
+    {
+        var digits = (long)Math.Log10(stone) + 1;
+
+        left = 0;
+        right = 0;
+        if (digits % 2 != 0) return false;
+
+        var tenPow = (long)Math.Pow(10, digits / 2d);
+
+        left = stone / tenPow;
+        right = stone % tenPow;
+
+        return true;
+    }
+
+    private static void UpdateDict(Dictionary<long, long> dict, long key, long value)
     {
         if (!dict.TryAdd(key, value))
             dict[key] += value;
